@@ -1,12 +1,14 @@
-package src.main.java.family;
+package family;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Person implements Family{
+public class Person implements Member {
     private String firstName;
     private String lastName;
     private Person spouse;
+    private Person theyHave;
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -18,6 +20,14 @@ public class Person implements Family{
         this.firstName = firstName;
         this.lastName = lastName;
         this.spouse = spouse;
+    }
+
+    public Person getTheyHave() {
+        return theyHave;
+    }
+
+    public void setTheyHave(Person theyHave) {
+        this.theyHave = theyHave;
     }
 
     public String getFirstName() {
@@ -50,13 +60,25 @@ public class Person implements Family{
 
     @Override
     public String toString() {
-        return firstName + ' ' + lastName;
+        return firstName + ' ' + lastName + " has " + getTheyHave().getFirstName() + ' ' + getTheyHave().getLastName();
     }
+
 
     @Override
     public List<Person> getPeople() {
-        List<Person> people = new ArrayList<>();
-        people.add(this);
-        return people;
+        return null;
+    }
+
+    public Person draw(List<Person> people) {
+
+        Random rand = new Random();
+        Person pick = people.get(rand.nextInt(people.size()));
+
+        if(pick.equals(this.spouse) || pick.equals(this)) {
+            pick = draw(people);
+        }
+
+        return pick;
+
     }
 }

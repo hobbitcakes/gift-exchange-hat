@@ -1,9 +1,10 @@
-package src.main.java.family;
+package family;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Couple implements Family {
+public class Couple implements Member {
     private Person husband;
     private Person wife;
 
@@ -30,5 +31,13 @@ public class Couple implements Family {
         people.add(this.wife);
 
         return people;
+    }
+
+    @Override
+    public Person draw(List<Person> people) {
+        Random rand = new Random();
+        Person pick = people.get(rand.nextInt(people.size()));
+        return pick;
+
     }
 }
